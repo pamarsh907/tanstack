@@ -1,11 +1,13 @@
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 import { useAnecdotes } from './hooks/useAnecdotes'
+import NotificationContext from './components/NotificationContext'
+import AnecdoteList from './components/AnecdoteList'
 
 
 const App = () => {
+
   const { anecdotes, isPending, addAnecdote, addVote } = useAnecdotes()
-  console.log('anecdotes :', anecdotes)
 
   if (isPending) {
     return <div>loading data...</div>
@@ -17,16 +19,7 @@ const App = () => {
 
       <Notification />
       <AnecdoteForm create={addAnecdote} />
-
-      {anecdotes.map((anecdote) => (
-        <div key={anecdote.id}>
-          <div>{anecdote.content}</div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={() => addVote(anecdote)}>vote</button>
-          </div>
-        </div>
-      ))}
+      <AnecdoteList anecdotes={anecdotes} addVote={addVote} />
     </div>
   )
 }

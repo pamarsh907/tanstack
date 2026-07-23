@@ -1,12 +1,20 @@
+import useNotify from '../hooks/useNotify'
+
 const AnecdoteForm = ({ create }) => {
+  const { notify } = useNotify()
 
   const onCreate = (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
-    console.log('content :', content)
-    create(content)
+    try {
+      create(content)
+    } catch {
+      notify(`too short must have length 5 or more`)
+    }
+
     event.target.reset()
-    console.log('new anecdote')
+
+    notify(`added ${content}`)
   }
 
   return (
