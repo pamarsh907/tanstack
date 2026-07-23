@@ -9,7 +9,6 @@ export const getAnecdotes = async () => {
 }
 
 export const createAnecdote = async (newAnecdote) => {
-  console.log('called create anecdote')
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -22,6 +21,26 @@ export const createAnecdote = async (newAnecdote) => {
     throw new Error('Failed to create anecdote')
   } else {
     console.log('created ok')
+  }
+
+  return await response.json()
+}
+
+export const update = async (id, newAnecdote) => {
+  console.log('newAnecdote :', JSON.stringify(newAnecdote))
+  console.log('called update anecdote')
+  const options = {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newAnecdote)
+  }
+ 
+  const response = await fetch(`${baseUrl}/${id}`, options)
+ 
+  if (!response.ok) {
+    throw new Error('Failed to update anecdote')
+  } else {
+    console.log('updated ok')
   }
  
   return await response.json()

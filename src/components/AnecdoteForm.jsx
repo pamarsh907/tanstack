@@ -4,7 +4,7 @@ const AnecdoteForm = ({ create }) => {
     event.preventDefault()
     const content = event.target.anecdote.value
     console.log('content :', content)
-    create({ content, votes: 0 })
+    create(content)
     event.target.reset()
     console.log('new anecdote')
   }
